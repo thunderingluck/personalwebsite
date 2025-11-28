@@ -3,6 +3,8 @@ import { motion } from 'motion/react'
 import { XIcon } from 'lucide-react'
 import { Spotlight } from '@/components/ui/spotlight'
 import { Magnetic } from '@/components/ui/magnetic'
+import Image from 'next/image'
+import { cn } from '@/lib/utils'
 import {
   MorphingDialog,
   MorphingDialogTrigger,
@@ -13,11 +15,13 @@ import {
 import Link from 'next/link'
 import { AnimatedBackground } from '@/components/ui/animated-background'
 import {
+  HERO_MEDIA,
   PROJECTS,
   WORK_EXPERIENCE,
   BLOG_POSTS,
   EMAIL,
   SOCIAL_LINKS,
+  type MediaAsset,
 } from './data'
 
 const VARIANTS_CONTAINER = {
@@ -39,11 +43,63 @@ const TRANSITION_SECTION = {
   duration: 0.3,
 }
 
-type ProjectVideoProps = {
-  src: string
+type ProjectMediaProps = {
+  media: MediaAsset
 }
 
-function ProjectVideo({ src }: ProjectVideoProps) {
+const NOISE_TEXTURE =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E"
+
+function DreamyOverlay({ className }: { className?: string }) {
+  return (
+    <>
+      <div
+        className={cn(
+          'pointer-events-none absolute inset-0 mix-blend-screen',
+          'bg-[radial-gradient(circle_at_15%_20%,rgba(255,255,255,0.12),transparent_30%),radial-gradient(circle_at_85%_10%,rgba(94,234,212,0.18),transparent_28%),radial-gradient(circle_at_25%_85%,rgba(244,114,182,0.16),transparent_32%),radial-gradient(circle_at_80%_70%,rgba(129,140,248,0.16),transparent_30%)]',
+          className,
+        )}
+        aria-hidden
+      />
+      <div
+        className={cn(
+          'pointer-events-none absolute inset-0 opacity-30 mix-blend-soft-light',
+          className,
+        )}
+        style={{ backgroundImage: `url(${NOISE_TEXTURE})` }}
+        aria-hidden
+      />
+    </>
+  )
+}
+
+function MediaFrame({
+  media,
+  className,
+  priority = false,
+}: ProjectMediaProps & { className?: string; priority?: boolean }) {
+  return (
+    <div
+      className={cn(
+        'relative overflow-hidden rounded-2xl bg-zinc-100/70 ring-1 ring-zinc-200/60 dark:bg-zinc-900/70 dark:ring-zinc-800/60',
+        className,
+      )}
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-purple-200/15 dark:from-white/5 dark:via-transparent dark:to-purple-300/10" />
+      <DreamyOverlay className="opacity-80" />
+      <Image
+        src={media.src}
+        alt={media.alt}
+        fill
+        sizes="(min-width: 768px) 640px, 100vw"
+        priority={priority}
+        className="relative z-10 h-full w-full object-cover"
+      />
+    </div>
+  )
+}
+
+function ProjectMedia({ media }: ProjectMediaProps) {
   return (
     <MorphingDialog
       transition={{
@@ -52,23 +108,17 @@ function ProjectVideo({ src }: ProjectVideoProps) {
         duration: 0.3,
       }}
     >
-      <MorphingDialogTrigger>
-        <video
-          src={src}
-          autoPlay
-          loop
-          muted
-          className="aspect-video w-full cursor-zoom-in rounded-xl"
-        />
+      <MorphingDialogTrigger className="block">
+        <MediaFrame media={media} className="aspect-video w-full cursor-zoom-in" />
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
-        <MorphingDialogContent className="relative aspect-video rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
-          <video
-            src={src}
-            autoPlay
-            loop
-            muted
-            className="aspect-video h-[50vh] w-full rounded-xl md:h-[70vh]"
+        <MorphingDialogContent
+          withOverlay
+          className="relative aspect-video rounded-2xl bg-zinc-50/80 p-1 ring-1 ring-zinc-200/50 ring-inset backdrop-blur-sm dark:bg-zinc-950/70 dark:ring-zinc-800/50"
+        >
+          <MediaFrame
+            media={media}
+            className="aspect-video h-[50vh] w-full md:h-[70vh]"
           />
         </MorphingDialogContent>
         <MorphingDialogClose
@@ -135,11 +185,20 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <div className="flex-1">
-          <p className="text-zinc-600 dark:text-zinc-400">
-            Focused on creating intuitive and performant web experiences.
-            Bridging the gap between design and development.
-          </p>
+        <div className="space-y-6">
+          <div className="flex-1">
+            <p className="text-zinc-600 dark:text-zinc-400">
+              Focused on creating intuitive and performant web experiences.
+              Bridging the gap between design and development.
+            </p>
+          </div>
+          <div className="relative overflow-hidden rounded-3xl bg-zinc-50/60 p-1 ring-1 ring-zinc-200/60 backdrop-blur-sm dark:bg-zinc-950/60 dark:ring-zinc-800/60">
+            <MediaFrame
+              media={HERO_MEDIA}
+              className="aspect-[16/9]"
+              priority
+            />
+          </div>
         </div>
       </motion.section>
 
@@ -152,7 +211,7 @@ export default function Personal() {
           {PROJECTS.map((project) => (
             <div key={project.name} className="space-y-2">
               <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-                <ProjectVideo src={project.video} />
+                <ProjectMedia media={project.media} />
               </div>
               <div className="px-1">
                 <a
