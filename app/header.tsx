@@ -6,8 +6,11 @@ export function Header() {
   return (
     <header className="mb-8 flex items-center justify-between">
       <div>
-        <Link href="/" className="font-medium text-black dark:text-white">
-          Julien Nim
+        <Link
+          href="/"
+          className="fire-ripple relative text-lg font-medium text-black transition-colors duration-300 hover:text-orange-500 focus-visible:text-orange-500 dark:text-white dark:hover:text-orange-300 dark:focus-visible:text-orange-300"
+        >
+          Julien Kim
         </Link>
         <TextEffect
           as="p"
