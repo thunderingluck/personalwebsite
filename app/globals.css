@@ -20,6 +20,169 @@
   }
 }
 
+/* Fiery ripple hover effect */
+.fire-ripple {
+  position: relative;
+  isolation: isolate;
+}
+
+.fire-ripple::before,
+.fire-ripple::after {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 140%;
+  height: 140%;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 224, 178, 0.8),
+    rgba(255, 140, 82, 0.55),
+    rgba(124, 58, 237, 0.35)
+  );
+  filter: blur(16px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+  mix-blend-mode: screen;
+}
+
+.fire-ripple::before {
+  animation: fireRipple 2s ease-out infinite;
+}
+
+.fire-ripple::after {
+  animation: fireFlicker 1.4s ease-in-out infinite;
+}
+
+.fire-ripple:hover::before,
+.fire-ripple:focus-visible::before,
+.fire-ripple:hover::after,
+.fire-ripple:focus-visible::after {
+  opacity: 1;
+}
+
+@keyframes fireRipple {
+  0% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes fireFlicker {
+  0%,
+  100% {
+    filter: blur(16px) hue-rotate(0deg);
+    opacity: 0.4;
+  }
+  30% {
+    filter: blur(14px) hue-rotate(8deg);
+    opacity: 0.75;
+  }
+  60% {
+    filter: blur(18px) hue-rotate(-6deg);
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fire-ripple::before,
+  .fire-ripple::after {
+    animation: none;
+  }
+}
+
+/* Flame shadow overlay effect */
+.flame-ember-trigger {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.flame-ember {
+  position: absolute;
+  inset: -25%;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 243, 224, 0.75),
+    rgba(255, 140, 82, 0.6),
+    rgba(124, 58, 237, 0.45)
+  );
+  filter: blur(18px);
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  z-index: 0;
+}
+
+.flame-ember-ripple,
+.flame-ember-flicker {
+  animation-play-state: paused;
+}
+
+.flame-ember-trigger:hover .flame-ember {
+  opacity: 0.95;
+}
+
+.flame-ember-trigger:hover .flame-ember-ripple {
+  animation: flameShadowRipple 1.8s ease-out infinite;
+  animation-play-state: running;
+}
+
+.flame-ember-trigger:hover .flame-ember-flicker {
+  animation: flameShadowFlicker 1.2s ease-in-out infinite;
+  animation-play-state: running;
+}
+
+@keyframes flameShadowRipple {
+  0% {
+    opacity: 0.45;
+    transform: scale(0.85) translateY(4%);
+  }
+  60% {
+    opacity: 0.8;
+    transform: scale(1.05) translateY(-3%);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.15) translateY(4%);
+  }
+}
+
+@keyframes flameShadowFlicker {
+  0%,
+  100% {
+    filter: blur(18px) hue-rotate(-2deg);
+    opacity: 0.55;
+  }
+  35% {
+    filter: blur(14px) hue-rotate(8deg);
+    opacity: 0.85;
+  }
+  70% {
+    filter: blur(20px) hue-rotate(-10deg);
+    opacity: 0.65;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flame-ember-ripple,
+  .flame-ember-flicker {
+    animation: none !important;
+  }
+}
+
 :root {
   --sh-class: #7aa2f7;
   --sh-sign: #89ddff;

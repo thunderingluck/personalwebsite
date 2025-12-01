@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/morphing-dialog'
 import Link from 'next/link'
 import { AnimatedBackground } from '@/components/ui/animated-background'
+import { FlameShadowOverlay } from '@/components/ui/flame-shadow-overlay'
 import {
   PROJECTS,
   WORK_EXPERIENCE,
@@ -140,6 +141,22 @@ export default function Personal() {
             Focused on creating intuitive and performant web experiences.
             Bridging the gap between design and development.
           </p>
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => window.open(`mailto:${EMAIL}`, '_self')}
+              className="flame-ember-trigger relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-orange-500 via-amber-400 to-violet-500 px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_35px_rgba(249,115,22,0.35)] transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-zinc-950"
+            >
+              <FlameShadowOverlay />
+              <span className="relative z-10 flex items-center gap-2">
+                <span aria-hidden>🔥</span>
+                <span>Ignite a project</span>
+              </span>
+            </button>
+            <span className="text-sm text-zinc-500 dark:text-zinc-400">
+              Hover to watch the ember glow ripple outward.
+            </span>
+          </div>
         </div>
       </motion.section>
 
