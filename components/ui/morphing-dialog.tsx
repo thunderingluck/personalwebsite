@@ -136,12 +136,14 @@ export type MorphingDialogContentProps = {
   children: React.ReactNode
   className?: string
   style?: React.CSSProperties
+  withOverlay?: boolean
 }
 
 function MorphingDialogContent({
   children,
   className,
   style,
+  withOverlay = false,
 }: MorphingDialogContentProps) {
   const { setIsOpen, isOpen, uniqueId, triggerRef } = useMorphingDialog()
   const containerRef = useRef<HTMLDivElement>(null!)
@@ -208,13 +210,29 @@ function MorphingDialogContent({
     <motion.div
       ref={containerRef}
       layoutId={`dialog-${uniqueId}`}
-      className={cn('overflow-hidden', className)}
+      className={cn('relative overflow-hidden', className)}
       style={style}
       role="dialog"
       aria-modal="true"
       aria-labelledby={`motion-ui-morphing-dialog-title-${uniqueId}`}
       aria-describedby={`motion-ui-morphing-dialog-description-${uniqueId}`}
     >
+      {withOverlay && (
+        <>
+          <div
+            className="pointer-events-none absolute inset-0 mix-blend-screen bg-[radial-gradient(circle_at_12%_18%,rgba(255,255,255,0.12),transparent_30%),radial-gradient(circle_at_86%_12%,rgba(125,211,252,0.2),transparent_28%),radial-gradient(circle_at_22%_86%,rgba(244,114,182,0.18),transparent_32%),radial-gradient(circle_at_78%_72%,rgba(129,140,248,0.18),transparent_32%)]"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute inset-0 opacity-25 mix-blend-soft-light"
+            style={{
+              backgroundImage:
+                "url(data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E)",
+            }}
+            aria-hidden
+          />
+        </>
+      )}
       {children}
     </motion.div>
   )

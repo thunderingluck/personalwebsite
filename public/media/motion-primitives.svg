@@ -1,0 +1,38 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="dusk" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1B0D28" />
+      <stop offset="55%" stop-color="#2A132E" />
+      <stop offset="100%" stop-color="#271429" />
+    </linearGradient>
+    <radialGradient id="flare" cx="0.25" cy="0.2" r="0.9">
+      <stop offset="0%" stop-color="#FFA07A" stop-opacity="0.8" />
+      <stop offset="45%" stop-color="#FF5F6D" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#1B0D28" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glimmer" cx="0.85" cy="0.15" r="0.75">
+      <stop offset="0%" stop-color="#FFE29F" stop-opacity="0.7" />
+      <stop offset="60%" stop-color="#FF719A" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#1B0D28" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="planes" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FF9D6C" />
+      <stop offset="45%" stop-color="#FECFEF" />
+      <stop offset="100%" stop-color="#8EC5FC" />
+    </linearGradient>
+    <filter id="grainSoft" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" />
+      <feColorMatrix type="saturate" values="0" />
+    </filter>
+  </defs>
+  <rect width="1280" height="720" fill="url(#dusk)" />
+  <rect width="1280" height="720" fill="url(#flare)" />
+  <rect width="1280" height="720" fill="url(#glimmer)" />
+  <path d="M-120 420C140 340 360 300 600 340C840 380 1060 520 1300 500C1400 492 1520 430 1520 430V780H-120V420Z" fill="url(#planes)" fill-opacity="0.35" />
+  <path d="M-80 560C220 530 480 520 720 560C980 606 1140 650 1400 630C1480 624 1560 590 1560 590V840H-80V560Z" fill="url(#planes)" fill-opacity="0.3" />
+  <path d="M-140 240C140 330 360 360 680 320C920 290 1120 200 1360 230C1490 246 1600 310 1600 310V-60H-140V240Z" fill="url(#planes)" fill-opacity="0.22" />
+  <circle cx="210" cy="190" r="110" fill="#FFD9B3" fill-opacity="0.25" />
+  <circle cx="1040" cy="200" r="130" fill="#FFD8F3" fill-opacity="0.22" />
+  <circle cx="900" cy="480" r="170" fill="#8EC5FC" fill-opacity="0.15" />
+  <rect width="1280" height="720" fill="#FFFFFF" opacity="0.05" filter="url(#grainSoft)" />
+</svg>
