@@ -110,23 +110,31 @@
 
 .flame-ember {
   position: absolute;
-  inset: 18% 6% 46% 6%;
-  border-radius: 9999px;
+  left: 8%;
+  right: 8%;
+  bottom: -42%;
+  height: 165%;
+  border-radius: 999px;
   background: radial-gradient(
-    circle at 50% 90%,
-    rgba(255, 243, 224, 0.9),
-    rgba(255, 153, 94, 0.75),
-    rgba(124, 58, 237, 0.4)
-  );
-  filter: blur(12px);
+      110% 95% at 50% 60%,
+      rgba(255, 244, 224, 0.9) 0%,
+      rgba(255, 205, 120, 0.75) 35%,
+      rgba(255, 142, 70, 0.6) 60%,
+      rgba(133, 59, 206, 0.32) 85%,
+      rgba(30, 8, 68, 0.16) 100%
+    ),
+    radial-gradient(90% 70% at 50% 86%, rgba(255, 255, 255, 0.4), rgba(255, 191, 102, 0.15) 70%, transparent 100%);
+  filter: blur(14px) saturate(120%);
   opacity: 0;
-  transform: translateY(14%) scale(0.65);
-  transform-origin: 50% 95%;
+  transform: translateY(18%) scale(0.55);
+  transform-origin: 50% 90%;
   pointer-events: none;
   mix-blend-mode: screen;
   z-index: -1;
-  transition: opacity 180ms ease, filter 200ms ease, transform 220ms ease;
+  transition: opacity 180ms ease, filter 200ms ease, transform 240ms ease;
   visibility: hidden;
+  will-change: opacity, filter, transform;
+  clip-path: ellipse(90% 70% at 50% 72%);
 }
 
 .flame-ember-ripple,
@@ -135,14 +143,14 @@
 }
 
 .flame-ember-trigger:hover .flame-ember {
-  opacity: 0.95;
-  filter: blur(14px);
-  transform: translateY(6%) scale(0.9);
+  opacity: 1;
+  filter: blur(12px) saturate(125%);
+  transform: translateY(0) scale(0.85);
   visibility: visible;
 }
 
 .flame-ember-trigger:hover .flame-ember-ripple {
-  animation: flameShadowRipple 1.8s ease-out infinite;
+  animation: flameShadowRipple 1.6s ease-out infinite;
   animation-play-state: running;
 }
 
@@ -153,32 +161,32 @@
 
 @keyframes flameShadowRipple {
   0% {
-    opacity: 0.45;
-    transform: scale(0.8) translateY(8%);
+    opacity: 0.5;
+    transform: scale(0.7) translateY(8%);
   }
   60% {
-    opacity: 0.8;
-    transform: scale(1.05) translateY(0%);
+    opacity: 0.85;
+    transform: scale(1.08) translateY(-4%);
   }
   100% {
     opacity: 0;
-    transform: scale(1.1) translateY(10%);
+    transform: scale(1.15) translateY(10%);
   }
 }
 
 @keyframes flameShadowFlicker {
   0%,
   100% {
-    filter: blur(14px) hue-rotate(-2deg);
-    opacity: 0.65;
+    filter: blur(12px) hue-rotate(-3deg) drop-shadow(0 18px 30px rgba(253, 186, 116, 0.25));
+    opacity: 0.7;
   }
   35% {
-    filter: blur(10px) hue-rotate(8deg);
+    filter: blur(10px) hue-rotate(12deg) drop-shadow(0 16px 36px rgba(255, 154, 72, 0.32));
     opacity: 0.95;
   }
   70% {
-    filter: blur(16px) hue-rotate(-10deg);
-    opacity: 0.7;
+    filter: blur(15px) hue-rotate(-12deg) drop-shadow(0 22px 44px rgba(124, 58, 237, 0.24));
+    opacity: 0.78;
   }
 }
 
