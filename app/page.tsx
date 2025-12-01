@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/morphing-dialog'
 import Link from 'next/link'
 import { AnimatedBackground } from '@/components/ui/animated-background'
+import { FlameButton } from '@/components/ui/flame-button'
 import {
   PROJECTS,
   WORK_EXPERIENCE,
@@ -140,6 +141,17 @@ export default function Personal() {
             Focused on creating intuitive and performant web experiences.
             Bridging the gap between design and development.
           </p>
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <FlameButton
+              type="button"
+              onClick={() => window.open(`mailto:${EMAIL}`, '_self')}
+            >
+              Ignite a project
+            </FlameButton>
+            <span className="text-sm text-zinc-500 dark:text-zinc-400">
+              Hover to watch the ember glow ripple outward.
+            </span>
+          </div>
         </div>
       </motion.section>
 
